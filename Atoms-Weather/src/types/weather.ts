@@ -5,6 +5,7 @@ export interface WeatherData {
   feelsLike: number;
   humidity: number;
   windSpeed: number;
+  visibility: number;
   description: string;
   icon: string;
 }

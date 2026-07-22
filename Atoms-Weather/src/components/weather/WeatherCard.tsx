@@ -1,14 +1,15 @@
-import {
-  Droplets,
-  Wind,
-  Eye
-} from "lucide-react";
+import { Droplets, Wind, Eye, Sun } from "lucide-react";
+import type { WeatherData } from "../../types/weather";
 
-function WeatherCard() {
+interface WeatherCardProps {
+  weather: WeatherData;
+}
+
+function WeatherCard({ weather }: WeatherCardProps) {
   return (
     <div
       className="
-        w-[420px]
+        w-[460px]
         rounded-3xl
         bg-white/15
         backdrop-blur-xl
@@ -24,28 +25,28 @@ function WeatherCard() {
     >
       <div className="text-center">
 
-        <div className="text-6xl">
-          ☀️
+        <div className="flex justify-center">
+          <Sun size={70} />
         </div>
 
         <h1 className="text-7xl font-bold mt-4">
-          31°
+          {weather.temperature}°
         </h1>
 
         <h2 className="text-2xl font-semibold mt-3">
-          Colombo
+          {weather.city}
         </h2>
 
         <p className="text-white/80">
-          Sri Lanka 🇱🇰
+          {weather.country}
         </p>
 
-        <p className="mt-3 text-lg">
-          Sunny
+        <p className="mt-3 text-lg capitalize">
+          {weather.description}
         </p>
 
         <p className="text-white/70 mt-2">
-          Monday • 6:42 PM
+          Feels like {weather.feelsLike}°
         </p>
 
       </div>
@@ -57,19 +58,25 @@ function WeatherCard() {
         <div>
           <Droplets className="mx-auto mb-2" />
           <p className="text-sm">Humidity</p>
-          <p className="font-semibold">82%</p>
+          <p className="font-semibold">
+            {weather.humidity}%
+          </p>
         </div>
 
         <div>
           <Wind className="mx-auto mb-2" />
           <p className="text-sm">Wind</p>
-          <p className="font-semibold">12 km/h</p>
+          <p className="font-semibold">
+            {weather.windSpeed} km/h
+          </p>
         </div>
 
         <div>
           <Eye className="mx-auto mb-2" />
           <p className="text-sm">Visibility</p>
-          <p className="font-semibold">10 km</p>
+          <p className="font-semibold">
+            {weather.visibility} km
+          </p>
         </div>
 
       </div>

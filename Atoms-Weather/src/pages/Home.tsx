@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 import Navbar from "../components/layout/Navbar";
@@ -7,14 +7,16 @@ import WeatherCard from "../components/weather/WeatherCard";
 import backgroundImage from "../assets/images/colombo.jpg";
 
 import { getWeather } from "../services/weatherApi";
+import type { WeatherData } from "../types/weather";
 
 function Home() {
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
   useEffect(() => {
     async function fetchWeather() {
       try {
         const data = await getWeather("Colombo");
-        console.log(data);
+        setWeatherData(data);
       } catch (error) {
         console.error(error);
       }
@@ -52,7 +54,9 @@ function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <WeatherCard />
+            {weatherData && (
+              <WeatherCard weather={weatherData} />
+            )}
           </motion.div>
         </div>
       </div>
