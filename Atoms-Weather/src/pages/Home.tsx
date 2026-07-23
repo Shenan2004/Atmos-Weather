@@ -12,6 +12,15 @@ import type { WeatherData } from "../types/weather";
 function Home() {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
 
+  async function handleSearch(city: string) {
+  try {
+    const data = await getWeather(city);
+    setWeatherData(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
   useEffect(() => {
     async function fetchWeather() {
       try {
@@ -47,7 +56,7 @@ function Home() {
             gap-10
           "
         >
-          <SearchBar />
+          <SearchBar onSearch={handleSearch}/>
 
           <motion.div
             initial={{ opacity: 0, y: 50 }}
